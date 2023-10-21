@@ -12,7 +12,6 @@ class Program
         Reference reference = new Reference("John 3:16");
         Scripture scripture = new Scripture(reference, scriptureText);
 
-
         scripture.ScriptureMemorizer();
 
     

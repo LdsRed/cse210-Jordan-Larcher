@@ -1,22 +1,26 @@
+
 public class Scripture
 {
 
+    
+    //Instance variables
     private string _text;
     private Reference _reference;
-
-    private List<Word> words = new();
-
+    private List<Word> _words = new();
+ 
 
     public Scripture()
     {
 
     }
 
+    //Constructor: it will received a Reference object and a string
+    //then the string text will be transformed to a List using first the Select query from the LINQ Query Syntax
     public Scripture(Reference reference, string text)
     {
         this._reference = reference;
         this._text = text;
-        words = text.Split(' ').Select(word => new Word(word)).ToList();
+        _words = text.Split(' ').Select(word => new Word(word)).ToList();
     }
 
 
@@ -32,11 +36,11 @@ public class Scripture
 
 
 
-    
+    //Method designed to hide random words
     public void HideFromRandomWord()
     {
-        List<Word> hiddenWords = words.Where(word => word.GetHidden()).ToList();
-        List<Word> nonHiddenWords = words.Where(word => !word.GetHidden()).ToList();
+        List<Word> hiddenWords = _words.Where(word => word.GetHidden()).ToList();
+        List<Word> nonHiddenWords = _words.Where(word => !word.GetHidden()).ToList();
     
         if (nonHiddenWords.Count > 0)
         {
@@ -47,25 +51,33 @@ public class Scripture
 
     }
     
+    
+    //This method will allows you to know if all the words are hidden by using the All query from LINQ Query Syntax
     public bool AllWordsHidden()
     {
-        return words.All(word => word.GetHidden());
+        return _words.All(word => word.GetHidden());
     }
 
 
     public string GetHiddenScripture()
     {
         List<string> textHidden = new();
-        foreach(Word text in words)
+        foreach(Word text in _words)
         {   
             textHidden.Add(text.GetText());
         }
 
         return string.Join(" ", textHidden);
     }
-
+    
+    
+   
     public void ScriptureMemorizer()
     {
+        
+        Console.WriteLine("A scripture will be displayed to be memorized. Enjoy it!");
+        
+        
         while(!AllWordsHidden())
         {
             Console.WriteLine($"{_reference.GetReference()}: {GetHiddenScripture()}");
@@ -87,34 +99,5 @@ public class Scripture
 
     
 
-    // public void Menu()
-    // {
-    //     string selection = "";
-    //     while (selection != "4")
-    //     {
-
-
-    //         Console.WriteLine("Please selec one of the following choices: ");
-    //         Console.WriteLine("1. Start memorizing \n2. Show available scriptures \n3. Add a new Scripture to memorize \n4. Quit");
-    //         Console.WriteLine("What whould you like to do? ");
-    //         selection = Console.ReadLine();
-
-    //         switch (selection)
-    //         {
-    //             case "1":
-    //                 ScriptureMemorizer();
-    //                 break;
-    //             case "2":
-    //                 AvailableScriptures();
-    //                 break;
-    //             case "3":
-    //                 AddNewScripture();
-    //                 break;
-    //             case "4":
-    //                 break;
-
-    //     }
-
-    // }
-
+   
 }
