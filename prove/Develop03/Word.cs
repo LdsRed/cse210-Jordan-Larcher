@@ -6,15 +6,26 @@ public class Word
 
     public Word(string text)
     {
-        this._text= text;
-        this._hidden = false;
+        SetText(text);
+        SetHidden(false);
     }
 
     public string GetText()
     {
-        return _text;
+        if(GetHidden())
+        {
+            return new string('_', _text.Length);
+        }
+        else
+        {
+            return this._text;
+        }
     }
 
+    public void SetText(string text)
+    {
+        this._text = text;
+    }
     public bool GetHidden()
     {
         return _hidden;
