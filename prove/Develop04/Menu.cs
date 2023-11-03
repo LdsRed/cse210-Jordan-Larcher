@@ -1,4 +1,4 @@
-using System;
+namespace Develop04;
 
 class Menu
 {
@@ -22,7 +22,8 @@ class Menu
             {
                 case "1":
                     Console.WriteLine("You chose Option 1");
-                    Console.ReadLine();
+                    BreathingActivity activity1 = new BreathingActivity();
+                    activity1.StartBreathingActivity();
                     break;
                 case "2":
                     Console.WriteLine("You chose Option 2");
@@ -33,13 +34,13 @@ class Menu
                     Console.ReadLine();
                     break;
                 case "4":
-                    exit = true;
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Press enter to try again.");
                     Console.ReadLine();
                     break;
             }
+            
         }
     }
 }
