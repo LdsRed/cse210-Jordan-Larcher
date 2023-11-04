@@ -31,10 +31,10 @@ class BreathingActivity : Activity
         while(DateTime.Now < endTime)
         {
             Console.Write("Breathe in...");
-            ShowCountDownTimer();
+            ShowCountDownTimer(4);
             Console.WriteLine();
             Console.Write("Now breathe out...");
-            ShowCountDownTimer();
+            ShowCountDownTimer(6);
             Console.WriteLine();
             Console.WriteLine();
         }
@@ -56,6 +56,7 @@ class BreathingActivity : Activity
         
         Console.WriteLine();
         Console.WriteLine(DisplayEndingMessage());
+        ShowSpinner();
         
         
 

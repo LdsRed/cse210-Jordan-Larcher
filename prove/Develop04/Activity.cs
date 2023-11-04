@@ -6,6 +6,7 @@ public abstract class Activity
     private string _description;
     private int _duration;
     private string _endingMessage;
+    
 
 
     protected Activity(){}
@@ -41,8 +42,8 @@ public abstract class Activity
         spinnerAnimation.Add("\\");
         spinnerAnimation.Add("|");
         spinnerAnimation.Add("/");
-        spinnerAnimation.Add("-");
-        spinnerAnimation.Add("\\");
+        //spinnerAnimation.Add("-");
+        //spinnerAnimation.Add("\\");
 
         foreach (var s in spinnerAnimation)
         {
@@ -55,9 +56,9 @@ public abstract class Activity
     }
 
 
-    protected static void ShowCountDownTimer()
+    protected static void ShowCountDownTimer(int time)
     {
-        for (var i = 5; i > 0; i--)
+        for (var i = time; i > 0; i--)
         {
             Console.Write(i);
             Thread.Sleep(1000);

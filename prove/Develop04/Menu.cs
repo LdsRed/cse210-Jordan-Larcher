@@ -17,6 +17,7 @@ class Menu
 
             Console.Write("Enter your choice: ");
             string choice = Console.ReadLine();
+            Console.Clear();
 
             switch (choice)
             {
@@ -27,13 +28,16 @@ class Menu
                     break;
                 case "2":
                     Console.WriteLine("You chose Option 2");
-                    Console.ReadLine();
+                    ReflectingActivity activity2 = new ReflectingActivity();
+                    activity2.StartReflectingActivity();
                     break;
                 case "3":
                     Console.WriteLine("You chose Option 3");
-                    Console.ReadLine();
+                    ListingActivity activity3 = new ListingActivity();
+                    activity3.StartListingActivity();
                     break;
                 case "4":
+                    exit = true;
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Press enter to try again.");
