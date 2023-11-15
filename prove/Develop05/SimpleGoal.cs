@@ -5,7 +5,7 @@ namespace Develop05;
 public class SimpleGoal : Goal
 {
 
-    private Boolean _isCompleted;
+    private Boolean _isCompleted = false;
     
     
     public SimpleGoal(string goalName, string description, int points, Boolean isCompleted) : 

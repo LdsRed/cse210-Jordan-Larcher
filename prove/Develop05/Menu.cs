@@ -13,6 +13,7 @@ public class Menu
     public void Show()
     {
         bool exit = false;
+        GoalFile goalFile = new();
 
         while (!exit)
         {
@@ -31,31 +32,30 @@ public class Menu
             string choice = Console.ReadLine();
             Console.Clear();
 
-            // switch (choice)
-            // {
-            //     case "1":
-            //         Console.WriteLine("You chose Option 1");
-            //         DisplayCreateGoalMenu();
-            //         break;
-            //     case "2":
-            //         
-            //         break;
-            //     case "3":
-            //         
-            //         break;
-            //     case "4":
-            //         exit = true;
-            //         break;
-            //       case "5":
-            //         exit = true;
-            //         break;  
-            //      case "6":
-            //         exit = true;
-            //         break;
-            //     default:
-            //         
-            //         break;
-            // }
+            switch (choice)
+            {
+                case "1":
+                    DisplayCreateGoalMenu();
+                    break;
+                case "2":
+                    
+                    break;
+                case "3":
+                    goalFile.LoadGoalFile();
+                    break;
+                case "4":
+                    goalFile.LoadGoalFile();
+                    break;
+                  case "5":
+                    exit = true;
+                    break;  
+                 case "6":
+                    exit = true;
+                    break;
+                default:
+                    
+                    break;
+            }
             
         }
     }

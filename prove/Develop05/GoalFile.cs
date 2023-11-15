@@ -8,99 +8,58 @@ public class GoalFile
     public GoalFile(){}
 
 
-    public void SaveFile()
+   public void SaveFile(List<string> dataToSave)
     {
-        Console.WriteLine();
-        Console.WriteLine("What is the name of the file? ");
-        _fileName = Console.ReadLine();
+        Console.WriteLine("What is the filename for the goal file? ");
+        string fileName = Console.ReadLine();
 
-        using (StreamWriter outputFile = new StreamWriter(_fileName))
+
+    
+        try
         {
-
-            foreach (Entry entries in _entries)
+            using (StreamWriter outputFile = new StreamWriter(fileName, true))
             {
-                outputFile.WriteLine(entries.TransformToString());
+    
+                foreach (var lines in dataToSave)
+                {
+                    outputFile.WriteLine(lines);
+                }
+    
+    
             }
-
-
         }
-
-        listOfFilenames.Add(_fileName);
-
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+            
+    
     }
 
     
 
 
-    //Option 1
-    public void WriteEntry()
+
+    public List<string> LoadGoalFile()
     {
-
-        Entry entry = new();
-        PromptGenerator generator = new();
-        string prompt = generator.GeneratePrompt();
-        entry.SetPrompt(prompt);
-        Console.WriteLine(prompt);
-        entry.SetEntry(Console.ReadLine());
-        entry.SetDate();
-        _entries.Add(entry);
-
-    }
-
-
-
-
-    public void LoadJournalFile()
-    {
-        Console.WriteLine("What is the filename? ");
+        Console.WriteLine("What is the filename/path? ");
         string filename = Console.ReadLine();
-        string data;
-        string input;
         Console.WriteLine();
 
-        StreamReader reader = null;
+        StreamReader reader = new StreamReader(filename);
 
-        try
+        List<string> lines = new List<string>();
+        string line = reader.ReadLine();
+
+        while (line != null)
         {
-            reader = new StreamReader(filename);
-            data = reader.ReadLine();
-            Boolean response = true;
-            while (response)
-            {
-                while (data != null)
-                {
-                    Console.WriteLine(data);
-                    data = reader.ReadLine();
-                }
-
-                Console.WriteLine();
-                Console.WriteLine("Would you like to load another file? (Yes/No)");
-                input = Console.ReadLine();
-
-                if (input.ToLower() == "yes")
-                {
-                    Console.WriteLine("What is the filename? ");
-                    filename = Console.ReadLine();
-                    reader = new StreamReader(filename);
-                    data = reader.ReadLine();
-                    while (data != null)
-                    {
-                        Console.WriteLine(data);
-                        data = reader.ReadLine();
-                        Console.WriteLine();
-                    }
-                }
-                else
-                {
-                    response = false;
-                }
-            }
+            lines.Add(line);
+            line = reader.ReadLine();
         }
-        catch (Exception e)
-        {
+        
+        reader.Close();
 
-            Console.WriteLine(e.Message);
-        }
+        return lines;
 
     }
 }
