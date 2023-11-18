@@ -21,8 +21,8 @@ public abstract class Goal
 
     public abstract void RecordEvent();
 
-    public abstract void IsComplete();
-    
+    public abstract string IsComplete();
+    public abstract void StartSettingGoal();
     public void SetGoalName(string name)
     {
         this._goalName = name;
@@ -39,17 +39,17 @@ public abstract class Goal
     }
 
 
-     public string GetGoalName(string name)
+     public string GetGoalName()
     {
         return this._goalName;
     }
 
-    public int GetPoints(int point)
+    public int GetPoints()
     {
         return this._pointsAssociated;
     }
     
-    public string GetGoalDescription(string description)
+    public string GetGoalDescription()
     {   
         return this._goalDescription;
     }

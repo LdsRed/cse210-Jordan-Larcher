@@ -5,14 +5,14 @@ namespace Develop05;
 public class Menu
 {
 
-    private List<Goal> _goalsList;
-    private int points;
+    private List<Goal> _goalsList = new();
+    private int _points = 0;
 
     
     
     public void Show()
     {
-        bool exit = false;
+        var exit = false;
         GoalFile goalFile = new();
 
         while (!exit)
@@ -28,8 +28,8 @@ public class Menu
             Console.WriteLine("6. Quit");
             Console.WriteLine();
             
-            Console.WriteLine("Select your choice from the menu above: ");
-            string choice = Console.ReadLine();
+            Console.WriteLine("Please select your choice from the menu above: ");
+            var choice = Console.ReadLine();
             Console.Clear();
 
             switch (choice)
@@ -38,13 +38,18 @@ public class Menu
                     DisplayCreateGoalMenu();
                     break;
                 case "2":
-                    
+                    DisplayGoalList();
                     break;
                 case "3":
-                    goalFile.LoadGoalFile();
+                    Console.WriteLine("Enter the file path for the goal file: ");
+                    goalFile.SetFileName(Console.ReadLine());   
+                    goalFile.SaveGoalsToFile(_goalsList, _points);
                     break;
                 case "4":
-                    goalFile.LoadGoalFile();
+                    Console.WriteLine("Enter the file path for the goals tha you want to load: ");
+                    goalFile.SetFileName(Console.ReadLine());
+                    goalFile.LoadGoalsFromFile();
+
                     break;
                   case "5":
                     exit = true;
@@ -52,16 +57,16 @@ public class Menu
                  case "6":
                     exit = true;
                     break;
-                default:
-                    
-                    break;
             }
+            
+            Console.WriteLine();
+            Console.WriteLine($"You have {this._points} points.");
             
         }
     }
 
 
-    public void DisplayCreateGoalMenu()
+    private void DisplayCreateGoalMenu()
     {
         Console.WriteLine("The types of Goals are: ");
         Console.WriteLine("1. Simple Goal");
@@ -70,7 +75,7 @@ public class Menu
         Console.WriteLine();
         Console.Write("Which type of goal would you like to create? ");
 
-        int userInput = int.Parse(Console.ReadLine());
+        var userInput = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
 
         SelectGoalToCreate(userInput);
 
@@ -82,17 +87,53 @@ public class Menu
         switch(userInput)
         {
             case 1:
-                //creates a simple goal
+                var simpleGoal = new SimpleGoal();
+                simpleGoal.StartSettingGoal();
+                _goalsList.Add(simpleGoal);
                 break;
             case 2:
-                //Creates an Eternal Goal
+                var eternalGoal = new EternalGoal();
+                eternalGoal.StartSettingGoal();
+                _goalsList.Add(eternalGoal);
                 break;
             case 3:
-                //Creates a CheckListGoal
+                var checkListGoal = new CheckListGoal();
+                checkListGoal.StartSettingGoal();
+                _goalsList.Add(checkListGoal);
                 break;
             default:
                 break;
         }
 
+    }
+
+    private void DisplayGoalList()
+    {
+        int count = 1;
+        if (_goalsList.Count == 0)
+        {
+            Console.WriteLine("The goal List is empty... :( ");
+        }
+        else
+        {
+            Console.WriteLine("The goals are: ");
+            foreach (var goal  in _goalsList)
+            {
+                Console.WriteLine($"{count}. [{goal.IsComplete()}] {goal.ToString()}");
+                count++;
+            }
+        }
+            
+    }
+
+
+    private void SetPoints(int points)
+    {
+        this._points = points;
+    }
+
+    private int GetPoints()
+    {
+        return this._points;
     }
 }

@@ -1,65 +1,65 @@
-namespace Develop05;
-
-public class GoalFile
-{
-    
+    namespace Develop05;
+    using Newtonsoft.Json;
+    public class GoalFile
+    {
     private string _fileName;
 
-    public GoalFile(){}
+    public GoalFile() { }
 
-
-   public void SaveFile(List<string> dataToSave)
+    public void SaveGoalsToFile(List<Goal> goals, int points)
     {
-        Console.WriteLine("What is the filename for the goal file? ");
-        string fileName = Console.ReadLine();
-
-
-    
+        string fileName = GetFileName();
         try
         {
             using (StreamWriter outputFile = new StreamWriter(fileName, true))
-            {
-    
-                foreach (var lines in dataToSave)
+            {   
+                outputFile.WriteLine($"Total points saved: {points}");
+                foreach (var line in goals)
                 {
-                    outputFile.WriteLine(lines);
+                    outputFile.WriteLine(line.ToString());
                 }
-    
-    
+
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            Console.WriteLine("Error saving goals: " + ex.Message);
         }
-            
-    
     }
 
-    
 
-
-
-    public List<string> LoadGoalFile()
+    public void LoadGoalsFromFile()
     {
-        Console.WriteLine("What is the filename/path? ");
-        string filename = Console.ReadLine();
-        Console.WriteLine();
-
-        StreamReader reader = new StreamReader(filename);
-
-        List<string> lines = new List<string>();
-        string line = reader.ReadLine();
-
-        while (line != null)
+        try
         {
-            lines.Add(line);
-            line = reader.ReadLine();
+            string fileName = GetFileName();
+            string[] lines = System.IO.File.ReadAllLines(fileName);
+
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split(",");
+
+                string name = parts[0];
+                string description = parts[1];
+
+                Console.WriteLine($"{name} - {description}");
+            }
+            
         }
-        
-        reader.Close();
-
-        return lines;
-
+        catch (Exception e) 
+        {
+            Console.WriteLine("Error loading the goals: " + e.Message);
+        }
     }
-}
+
+
+    public void SetFileName(string fileName)
+    {
+        this._fileName = fileName;
+    }
+
+    public string GetFileName()
+    {
+        return this._fileName;
+    }
+    }
