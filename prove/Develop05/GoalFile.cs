@@ -62,61 +62,63 @@ public List<Goal> LoadGoalsFromFile(string fileName)
 private Goal ParseGoalFromFile(string line)
 {
     
-    var parts = line.Split(',');
+    string[] parts = line.Split(':');
 
-    if (parts.Length < 1)
+    if (parts.Length >= 2)
     {
-        
         var type = parts[0].Trim().ToLower();
+
+        var details = parts[1].Split(',');
 
         switch (type)
         {
             case "simplegoal":
-                return ParseSimpleGoal(parts);
+                return ParseSimpleGoal(details);
             case "eternalgoal":
-                return ParseEternalGoal(parts);
+                return ParseEternalGoal(details);
             case "checklistgoal":
-                return ParseCheckListGoal(parts);
+                return ParseCheckListGoal(details);
             default:
                 return null;
         }
+        
     }
 
     return null;
 }
 
-private Goal ParseSimpleGoal(string[] parts)
+private Goal ParseSimpleGoal(string[] details)
 {
     
-    var name = parts[1];
-    var description = parts[2];
-    var points = int.Parse(parts[3]);
-    var isCompleted = bool.Parse(parts[4]);
+    string name = details[0];
+    string description = details[1];
+    int points = int.Parse(details[2]);
+    bool isCompleted = bool.Parse(details[3]);
 
     return new SimpleGoal(name, description, points, isCompleted);
 }
 
 
-private Goal ParseEternalGoal(string[] parts)
+private Goal ParseEternalGoal(string[] details)
 {
-    var name = parts[1];
-    var description = parts[2];
-    var points = int.Parse(parts[3]);
+    var name = details[0];
+    var description = details[1];
+    var points = int.Parse(details[2]);
 
     return new EternalGoal(name, description, points);
 }
 
 
-private Goal ParseCheckListGoal(string[] parts)
+private Goal ParseCheckListGoal(string[] details)
 {
   
 
-    var name = parts[1];
-    var description = parts[2];
-    var points = int.Parse(parts[3]);
-    var timesToComplete = int.Parse(parts[4]);
-    var bonusAmount = int.Parse(parts[5]);
-    var timesCompleted = int.Parse(parts[6]);
+    var name = details[0];
+    var description = details[1];
+    var points = int.Parse(details[2]);
+    var timesToComplete = int.Parse(details[4]);
+    var bonusAmount = int.Parse(details[3]);
+    var timesCompleted = int.Parse(details[5]);
     
     return new CheckListGoal(name, description, points, timesToComplete, bonusAmount, timesCompleted);;
 }

@@ -12,9 +12,9 @@ public class CheckListGoal : Goal
     public CheckListGoal(string goalName, string description, int points, int timesToComplete, int bonusAmount, int timesCompleted) :
      base(goalName, description, points)
     {
-        this._timesToComplete = 0;
-        this._bonusAmount = 0;
-        this._timesCompleted = 0;
+        this._timesToComplete = timesToComplete;
+        this._bonusAmount = bonusAmount;
+        this._timesCompleted = timesCompleted;
     }
 
 
