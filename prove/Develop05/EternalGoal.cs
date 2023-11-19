@@ -9,26 +9,15 @@ public class EternalGoal : Goal
         base(goalName, description, point)
     { }
     
-    // public override string IsComplete()
-    // {
-    //     if (this._isCompleted)
-    //     {
-    //         return "X";
-    //     }
-    //     else
-    //     {
-    //         return "";
-    //     }
-    // }
 
     public override void RecordEvent()
     {
-        throw new NotImplementedException();
+        
     }
 
     public override string IsComplete()
     {
-        throw new NotImplementedException();
+        return "";
     }
 
     public override void StartSettingGoal()
@@ -38,7 +27,13 @@ public class EternalGoal : Goal
         Console.WriteLine("What is a short description of it? ");
         SetGoalDescription(Console.ReadLine());
         Console.WriteLine("What is the amount of points associated with this goal? ");
-        SetPoints(int.Parse(Console.ReadLine() ?? throw new InvalidOperationException()));
+        SetPointsAssociated(int.Parse(Console.ReadLine()));
+
+    }
+
+    public override string TextToBeDisplayedAtFileLvl()
+    {
+        return $"EternalGoal: {GetGoalName()}, {GetGoalDescription()}, {GetPointsAssociated()}";
         
     }
 

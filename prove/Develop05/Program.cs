@@ -8,7 +8,7 @@ class Program
     {
         Console.WriteLine("Hello Develop05 World!");
 
-        Menu menu = new Menu();
+        var menu = new Menu();
         
         
         menu.Show();

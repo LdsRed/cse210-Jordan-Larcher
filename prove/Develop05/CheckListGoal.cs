@@ -9,11 +9,12 @@ public class CheckListGoal : Goal
 
     public CheckListGoal(){}
 
-    public CheckListGoal(string goalName, string description, int points, int timesToComplete, int bonusAmount) :
+    public CheckListGoal(string goalName, string description, int points, int timesToComplete, int bonusAmount, int timesCompleted) :
      base(goalName, description, points)
     {
         this._timesToComplete = 0;
         this._bonusAmount = 0;
+        this._timesCompleted = 0;
     }
 
 
@@ -21,12 +22,12 @@ public class CheckListGoal : Goal
 
     public override string IsComplete()
     {
-        throw new NotImplementedException();
+        return _timesToComplete == _timesCompleted ? "X" : "";
     }
 
     public override void RecordEvent()
     {
-        throw new NotImplementedException();
+        IsComplete();
     }
 
     public void SetTimesToComplete(int times)
@@ -50,9 +51,9 @@ public class CheckListGoal : Goal
         return this._bonusAmount;
     }
 
-     public void SetTimesCompleted(int timesCompleted)
+     public void SetTimesCompleted()
      {
-         this._timesCompleted = timesCompleted;
+         this._timesCompleted += 1;
      }
 
      public int GetTimesCompleted()
@@ -66,13 +67,19 @@ public class CheckListGoal : Goal
          Console.WriteLine("What is a short description of it? ");
          SetGoalDescription(Console.ReadLine());
          Console.WriteLine("What is the amount of points associated with this goal? ");
-         SetPoints(int.Parse(Console.ReadLine() ?? string.Empty));
+         SetPointsAssociated(int.Parse(Console.ReadLine() ?? string.Empty));
          Console.WriteLine("How many times does this goal need to be accomplished for a bonus? ");
          SetTimesToComplete(int.Parse(Console.ReadLine() ?? string.Empty));
          Console.WriteLine("What is the bonus for accomplishing it that many times? ");
          SetBonusAmount(int.Parse(Console.ReadLine() ?? string.Empty));
      }
-     
+
+     public override string TextToBeDisplayedAtFileLvl()
+     {
+         return $"CheckListGoal: {GetGoalName()}, {GetGoalDescription()}, {GetPointsAssociated()}, {GetBonusAmount()}, {GetTimesToComplete()}, {GetTimesCompleted()}";
+
+     }
+
      public override string ToString()
      {
          return $"[{IsComplete()}] {GetGoalName()} ({GetGoalDescription()} -- Currently completed: {GetTimesCompleted()}/{GetTimesToComplete()})";

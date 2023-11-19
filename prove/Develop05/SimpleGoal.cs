@@ -7,7 +7,7 @@ public class SimpleGoal : Goal
 
     private bool _isCompleted = false;
     
-    
+
     public SimpleGoal(){}
     public SimpleGoal(string goalName, string description, int points, bool isCompleted) : 
         base(goalName, description, points)
@@ -22,7 +22,8 @@ public class SimpleGoal : Goal
 
     public override void RecordEvent()
     {
-        throw new NotImplementedException();
+        const bool completed = true;
+        SetIsCompleted(completed);
     }
 
     public override void StartSettingGoal()
@@ -32,21 +33,28 @@ public class SimpleGoal : Goal
         Console.WriteLine("What is a short description of it? ");
         SetGoalDescription(Console.ReadLine());
         Console.WriteLine("What is the amount of points associated with this goal? ");
-        SetPoints(int.Parse(Console.ReadLine() ?? string.Empty));
+        SetPointsAssociated(int.Parse(Console.ReadLine() ?? string.Empty));
         
     }
 
 
     public override string ToString()
     {
-        return $"Goal name:{GetGoalName()}."
-        + $"\nGoal description: {GetGoalDescription()}"
-        + $"\npoints given if completed:{GetPoints()}"
-        + $"\nIs the goal completed? {GetIsCompleted()}";
+        return $"[{IsComplete()}] {GetGoalName()} ({GetGoalDescription()})";
     }
 
-    public bool GetIsCompleted()
+    public override string TextToBeDisplayedAtFileLvl()
+    {
+        return $"SimpleGoal: {GetGoalName()}, {GetGoalDescription()}, {GetPointsAssociated()}, {GetIsCompleted()}";
+    }
+
+    private bool GetIsCompleted()
     {
         return _isCompleted;
+    }
+
+    private void SetIsCompleted(bool isCompleted)
+    {
+        this._isCompleted = isCompleted;
     }
 }

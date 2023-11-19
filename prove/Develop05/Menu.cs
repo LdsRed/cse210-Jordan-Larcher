@@ -5,7 +5,7 @@ namespace Develop05;
 public class Menu
 {
 
-    private List<Goal> _goalsList = new();
+    private List<Goal> _goalsList = new List<Goal>();
     private int _points = 0;
 
     
@@ -17,7 +17,8 @@ public class Menu
 
         while (!exit)
         {
-            Console.Clear();
+            Console.WriteLine($"You have {GetPointsEarned()} points");
+            Console.WriteLine();
             Console.WriteLine("Menu Options: ");
             Console.WriteLine();
             Console.WriteLine("1. Create New Goal");
@@ -30,8 +31,7 @@ public class Menu
             
             Console.WriteLine("Please select your choice from the menu above: ");
             var choice = Console.ReadLine();
-            Console.Clear();
-
+            var filePath = "";
             switch (choice)
             {
                 case "1":
@@ -42,17 +42,18 @@ public class Menu
                     break;
                 case "3":
                     Console.WriteLine("Enter the file path for the goal file: ");
-                    goalFile.SetFileName(Console.ReadLine());   
-                    goalFile.SaveGoalsToFile(_goalsList, _points);
+                    filePath = Console.ReadLine();
+                    goalFile.SetFileName(filePath);   
+                    goalFile.SaveGoalsToFile(_goalsList, _points, filePath);
                     break;
                 case "4":
                     Console.WriteLine("Enter the file path for the goals tha you want to load: ");
-                    goalFile.SetFileName(Console.ReadLine());
-                    goalFile.LoadGoalsFromFile();
-
+                    filePath = Console.ReadLine();
+                    goalFile.SetFileName(filePath);
+                    _goalsList = goalFile.LoadGoalsFromFile(filePath);
                     break;
                   case "5":
-                    exit = true;
+                    RecordEvent();
                     break;  
                  case "6":
                     exit = true;
@@ -60,7 +61,6 @@ public class Menu
             }
             
             Console.WriteLine();
-            Console.WriteLine($"You have {this._points} points.");
             
         }
     }
@@ -109,7 +109,7 @@ public class Menu
 
     private void DisplayGoalList()
     {
-        int count = 1;
+        var count = 1;
         if (_goalsList.Count == 0)
         {
             Console.WriteLine("The goal List is empty... :( ");
@@ -119,7 +119,7 @@ public class Menu
             Console.WriteLine("The goals are: ");
             foreach (var goal  in _goalsList)
             {
-                Console.WriteLine($"{count}. [{goal.IsComplete()}] {goal.ToString()}");
+                Console.WriteLine($"{count}. {goal.ToString()}");
                 count++;
             }
         }
@@ -127,12 +127,33 @@ public class Menu
     }
 
 
-    private void SetPoints(int points)
+    private void RecordEvent()
     {
-        this._points = points;
+        var count = 1;
+        Console.WriteLine("The Goals are:");
+        foreach (var goal in _goalsList)
+        {
+            Console.WriteLine($"{count}. {goal.GetGoalName()}");
+            count++;
+        }
+        Console.WriteLine();
+        Console.WriteLine("Which goal did you accomplish? ");
+        var goalAchieved = int.Parse(Console.ReadLine() ?? string.Empty);
+       
+        Console.WriteLine($"Congratulations! you have earned {_goalsList[goalAchieved].GetPointsAssociated()} points!!");
+        
+        _goalsList[goalAchieved].RecordEvent();
+        
+        SetPointsEarned(_goalsList[goalAchieved].GetPointsAssociated());
+        Console.WriteLine($"You now have {GetPointsEarned()} points.");
     }
 
-    private int GetPoints()
+    public void SetPointsEarned(int points)
+    {
+        this._points += points;
+    }
+
+    private int GetPointsEarned()
     {
         return this._points;
     }
