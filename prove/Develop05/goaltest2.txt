@@ -1,6 +1,0 @@
-Total points saved: 0
-Goal name:finish my homework.
-Goal description: I have to finish my homework by the end of the day
-points given if completed:5000
-Is the goal completed? False
-
