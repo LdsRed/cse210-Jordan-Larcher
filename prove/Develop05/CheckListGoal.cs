@@ -22,12 +22,35 @@ public class CheckListGoal : Goal
 
     public override string IsComplete()
     {
-        return _timesToComplete == _timesCompleted ? "X" : "";
+        if (_timesCompleted == _timesToComplete)
+        {
+
+            return "X";
+        }
+        else
+        {
+            return "";
+        }
+        //return _timesToComplete == _timesCompleted ? "X" : "";
     }
 
     public override void RecordEvent()
     {
+        SetTimesCompleted();
         IsComplete();
+    }
+
+    public override int GetPointsAssociated()
+    {
+        if (_timesCompleted == _timesToComplete)
+        {
+            return GetBonusAmount();
+        }
+        else
+        {
+            return base.GetPointsAssociated();
+        }
+        
     }
 
     public void SetTimesToComplete(int times)

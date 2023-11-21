@@ -22,8 +22,8 @@ public class SimpleGoal : Goal
 
     public override void RecordEvent()
     {
-        const bool completed = true;
-        SetIsCompleted(completed);
+        _isCompleted = true;
+        SetIsCompleted(_isCompleted);
     }
 
     public override void StartSettingGoal()

@@ -44,7 +44,7 @@ public abstract class Goal
         return this._goalName;
     }
 
-     public int GetPointsAssociated()
+     public virtual int GetPointsAssociated()
     {
         return this._pointsAssociated;
     }

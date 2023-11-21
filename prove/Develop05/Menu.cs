@@ -130,22 +130,30 @@ public class Menu
     private void RecordEvent()
     {
         var count = 1;
-        Console.WriteLine("The Goals are:");
-        foreach (var goal in _goalsList)
+        if(_goalsList.Count == 0)
         {
-            Console.WriteLine($"{count}. {goal.GetGoalName()}");
-            count++;
+            Console.WriteLine("There are no goals in your list or you didn't load them from file. Please validate.");
+        } else 
+        {
+            Console.WriteLine("The Goals are:");
+            foreach (var goal in _goalsList)
+            {
+                Console.WriteLine($"{count}. {goal.GetGoalName()}");
+                count++;
+            }
+            
+            Console.WriteLine();
+            Console.WriteLine("Which goal did you accomplish? ");
+            var goalAchieved = int.Parse(Console.ReadLine() ?? string.Empty);
+            
+
+            Console.WriteLine($"Congratulations! you have earned {_goalsList[goalAchieved -1 ].GetPointsAssociated()} points!!");
+            _goalsList[goalAchieved -1].RecordEvent();
+            
+            SetPointsEarned(_goalsList[goalAchieved - 1].GetPointsAssociated());
+            Console.WriteLine($"You now have {GetPointsEarned()} points.");
         }
-        Console.WriteLine();
-        Console.WriteLine("Which goal did you accomplish? ");
-        var goalAchieved = int.Parse(Console.ReadLine() ?? string.Empty);
-       
-        Console.WriteLine($"Congratulations! you have earned {_goalsList[goalAchieved].GetPointsAssociated()} points!!");
         
-        _goalsList[goalAchieved].RecordEvent();
-        
-        SetPointsEarned(_goalsList[goalAchieved].GetPointsAssociated());
-        Console.WriteLine($"You now have {GetPointsEarned()} points.");
     }
 
     public void SetPointsEarned(int points)
