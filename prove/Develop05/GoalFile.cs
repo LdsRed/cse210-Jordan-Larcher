@@ -10,7 +10,7 @@ public void SaveGoalsToFile(List<Goal> goals, int points, string fileName)
 {
     try
     {
-        using (StreamWriter outputFile = new StreamWriter(fileName, true))
+        using (StreamWriter outputFile = new StreamWriter(fileName, false))
         {   
             outputFile.WriteLine(points);
             foreach (var line in goals)
