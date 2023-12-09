@@ -7,7 +7,8 @@ class Lecture : Event
     private int _capacity;
 
 
-    public Lecture(string title, string description, string date, int time, Address address, string speaker, int capacity) : base(title, description, date, time, address)
+    public Lecture(string title, string description, string date, int time, Address address, string speaker, int capacity) 
+        : base(title, description, date, time, address)
     {
         this._speaker = speaker;
         this._capacity = capacity;
@@ -19,7 +20,7 @@ class Lecture : Event
         fullDetails += $"Description: {GetDescription()}\n";
         fullDetails += $"Date: {GetDate()}\n";
         fullDetails += $"Time: {GetTime()}\n";
-        fullDetails += $"Address: {GetAddress()}\n";
+        fullDetails += $"Address: {GetAddress().GetFullAddress()}\n";
         fullDetails += "Type of Event: Lecture\n";
         fullDetails += $"Speaker: {GetNameSpeaker()}\n";
         fullDetails += $"Capacity: {GetCapacity()}\n";
@@ -30,7 +31,7 @@ class Lecture : Event
     public override string GetShortDescription()
     {
         var shortDetails = "Type of Event: Lecture\n";
-        shortDetails = $"Title: {GetTitle()}\n";
+        shortDetails += $"Title: {GetTitle()}\n";
         shortDetails += $"Date: {GetDate()}\n";
 
         return shortDetails;
@@ -42,7 +43,7 @@ class Lecture : Event
         simpleDetails += $"Description: {GetDescription()}\n";
         simpleDetails += $"Date: {GetDate()}\n";
         simpleDetails += $"Time: {GetTime()}\n";
-        simpleDetails += $"Address: {GetAddress()}\n";
+        simpleDetails += $"Address: {GetAddress().GetFullAddress()}\n";
 
         return simpleDetails;
     }

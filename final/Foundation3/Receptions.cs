@@ -17,7 +17,7 @@ class Receptions : Event
         simpleDetails += $"Description: {GetDescription()}\n";
         simpleDetails += $"Date: {GetDate()}\n";
         simpleDetails += $"Time: {GetTime()}\n";
-        simpleDetails += $"Address: {GetAddress()}\n";
+        simpleDetails += $"Address: {GetAddress().GetFullAddress()}\n";
 
         return simpleDetails;
     }
@@ -28,7 +28,7 @@ class Receptions : Event
         fullDetails += $"Description: {GetDescription()}\n";
         fullDetails += $"Date: {GetDate()}\n";
         fullDetails += $"Time: {GetTime()}\n";
-        fullDetails += $"Address: {GetAddress()}\n";
+        fullDetails += $"Address: {GetAddress().GetFullAddress()}\n";
         fullDetails += "Type of Event: Receptions\n";
 
         return fullDetails;
@@ -37,7 +37,7 @@ class Receptions : Event
     public override string GetShortDescription()
     {
         var shortDetails = "Type of Event: Lecture\n";
-        shortDetails = $"Title: {GetTitle()}\n";
+        shortDetails += $"Title: {GetTitle()}\n";
         shortDetails += $"Date: {GetDate()}\n";
 
         return shortDetails;
